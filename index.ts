@@ -1,6 +1,8 @@
 type HTTP_STATUS = 200 | 500;
 type HTTP_METHOD = 'GET' | 'POST';
 
+type Subscribe = (observer: Observer) => () => void;
+
 interface User {
   name: string;
   age: number;
@@ -79,7 +81,7 @@ class Observer implements IObserver {
 }
 
 class Observable implements IObservable {
-  constructor(private _subscribe: any) {}
+  constructor(private _subscribe: Subscribe) {}
 
   static from(values: HttpRequest[]) {
     return new Observable((observer: Observer) => {
